@@ -1,12 +1,18 @@
 import './App.css';
+import TodoContainerElement from './TodoContainerElement';
+import TodoInput from './TodoInput';
+import TodoSortSection from './TodoSortSection';
 
 const App = () => {
   return (
-    <div className="content">
-      <h1>Rsbuild with React</h1>
-      <p>Start building amazing things with Rsbuild.</p>
-    </div>
-  );
-};
-
+    <>
+      <div>
+          <h1 id="app-name">To-Do List</h1>
+        <TodoInput />
+        <TodoSortSection />
+        <TodoContainerElement />
+      </div>
+    </>
+  ); 
+}
 export default App;

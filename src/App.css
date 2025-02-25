@@ -1,26 +1,77 @@
-body {
-  margin: 0;
-  color: #fff;
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  background-image: linear-gradient(to bottom, #020917, #101725);
+html {
+  background-color: #F8F3D9;
 }
 
-.content {
+#root {
   display: flex;
-  min-height: 100vh;
-  line-height: 1.1;
-  text-align: center;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-.content h1 {
-  font-size: 3.6rem;
-  font-weight: 700;
+#app-name {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
 }
 
-.content p {
-  font-size: 1.2rem;
-  font-weight: 400;
-  opacity: 0.5;
+#input-section {
+  width: 410px;
+}
+
+#input, #due_date, #add-todo {
+  height: 19px;
+  margin: 0px 5px
+}
+
+#add-todo {
+  height: 24px
+}
+
+#sort-section {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  width: 350px;
+}
+
+#date, #name, #done, #undone {
+  height: 24px;
+  margin: 0px 5px;
+}
+
+#sort-header {
+  position: relative;
+  bottom: 3px
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  border-radius: 5px;
+  width: 400px;
+  height: 500px;
+  border: 1px solid black;
+  background-color: #EBE5C2;
+
+}
+
+.example {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  margin: 5px;
+  padding-left: 5px;
+  
+  height: 40px;
+  background-color: #B9B28A;
+}
+
+#todo-list {
+  padding-left: 5px;
+  width: 90%;
 }
