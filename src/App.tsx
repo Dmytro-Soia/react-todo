@@ -1,6 +1,6 @@
 import './App.css';
-import TodoContainer from './TodoContainerElement';
-import Input from './TodoInput';
+import TodoContainerElement from './TodoContainerElement';
+import TodoInput from './TodoInput';
 import TodoSortSection from './TodoSortSection';
 
 const App = () => {
@@ -8,9 +8,9 @@ const App = () => {
     <>
       <div>
           <h1 id="app-name">To-Do List</h1>
-        <Input />
+        <TodoInput />
         <TodoSortSection />
-        <TodoContainer />
+        <TodoContainerElement />
       </div>
     </>
   ); 

@@ -14,7 +14,7 @@ function listTodos() {
 
 
 
-const TodoContainer = () => {
+const TodoContainerElement = () => {
     return (
     <div id="container">
         {listTodos()}
@@ -22,4 +22,4 @@ const TodoContainer = () => {
     )
 }
 
-export default TodoContainer
+export default TodoContainerElement

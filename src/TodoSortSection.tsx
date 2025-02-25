@@ -1,13 +1,13 @@
-import Button from "./Button"
+import DefaultButton from "./DefaultButton"
 
 const TodoSortSection = () => {
     return (
     <div id="sort-section">
           <h2 id="sort-header">Sort By:</h2>
-          <Button buttonText="Date" buttonId="date" />
-          <Button buttonText="Name" buttonId="name" />
-          <Button buttonText="Done" buttonId="done" />
-          <Button buttonText="Undone" buttonId="undone" />
+          <DefaultButton buttonText="Date" buttonId="date" />
+          <DefaultButton buttonText="Name" buttonId="name" />
+          <DefaultButton buttonText="Done" buttonId="done" />
+          <DefaultButton buttonText="Undone" buttonId="undone" />
         </div>
         )
 }
