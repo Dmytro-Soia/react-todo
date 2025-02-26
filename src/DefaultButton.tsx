@@ -1,6 +1,14 @@
-const DefaultButton = ({ buttonText, buttonId }: { buttonText: string, buttonId: string}) =>  {
+interface DefaultButtonProps {
+    buttonText: string;
+    buttonId: string;
+    onClick: () => void;
+  }
+
+const DefaultButton = (
+    { buttonText, buttonId, onClick }: DefaultButtonProps
+) =>  {
     return (
-        <button className="button" id={buttonId}>{buttonText}</button>
+        <button className="button" onClick={onClick} id={buttonId}>{buttonText}</button>
     )
 }
 
