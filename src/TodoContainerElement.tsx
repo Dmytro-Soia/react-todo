@@ -1,25 +1,24 @@
-const todos = [
-    'example1',
-    'example2',
-    'example3',
-    'example4'];
+import { Todo } from './App';
+import NewTodoStructure from './NewTodoStructure';
 
-function listTodos() {
-    const render = todos.map(todo => 
-        <li key={todo} className="example">{todo}</li>
-    )
-    return <ul id="todo-list">{render}</ul>
-}
-
-
-
-
-const TodoContainerElement = () => {
-    return (
+const TodoContainerElement = ({
+  todos,
+  checkDone,
+}: {
+  todos: Todo[];
+  checkDone: (id: number, todo: Todo) => void;
+}) => {
+  return (
     <div id="container">
-        {listTodos()}
+      <ul id="todo-list">
+        {todos.map((todo) => {
+          return (
+            <NewTodoStructure key={todo.id} todo={todo} checkDone={checkDone} />
+          );
+        })}
+      </ul>
     </div>
-    )
-}
+  );
+};
 
-export default TodoContainerElement
+export default TodoContainerElement;

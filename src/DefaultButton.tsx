@@ -1,7 +1,19 @@
-const DefaultButton = ({ buttonText, buttonId }: { buttonText: string, buttonId: string}) =>  {
-    return (
-        <button className="button" id={buttonId}>{buttonText}</button>
-    )
+interface DefaultButtonProps {
+  buttonText: string;
+  buttonId: string;
+  onClick: () => void;
 }
 
-export default DefaultButton
+const DefaultButton = ({
+  buttonText,
+  buttonId,
+  onClick,
+}: DefaultButtonProps) => {
+  return (
+    <button className="button" onClick={onClick} id={buttonId}>
+      {buttonText}
+    </button>
+  );
+};
+
+export default DefaultButton;

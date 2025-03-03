@@ -1,5 +1,5 @@
 html {
-  background-color: #F8F3D9;
+  background-color: #f8f3d9;
 }
 
 #root {
@@ -10,7 +10,7 @@ html {
 }
 
 #app-name {
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 40px;
@@ -20,13 +20,15 @@ html {
   width: 410px;
 }
 
-#input, #due_date, #add-todo {
+#input,
+#due_date,
+#add-todo {
   height: 19px;
-  margin: 0px 5px
+  margin: 0px 5px;
 }
 
 #add-todo {
-  height: 24px
+  height: 24px;
 }
 
 #sort-section {
@@ -34,17 +36,20 @@ html {
   position: relative;
   flex-direction: row;
   align-items: center;
-  width: 350px;
+  width: 400px;
 }
 
-#date, #name, #done, #undone {
+#date,
+#name,
+#done,
+#undone {
   height: 24px;
-  margin: 0px 5px;
+  margin: 0px 15px;
 }
 
 #sort-header {
   position: relative;
-  bottom: 3px
+  bottom: 3px;
 }
 
 #container {
@@ -56,19 +61,28 @@ html {
   width: 400px;
   height: 500px;
   border: 1px solid black;
-  background-color: #EBE5C2;
-
+  background-color: #ebe5c2;
 }
 
 .example {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-radius: 5px;
   margin: 5px;
   padding-left: 5px;
-  
+
   height: 40px;
-  background-color: #B9B28A;
+  background-color: #b9b28a;
+}
+
+#todo-date {
+  margin: 0px 10px 0px auto;
+}
+
+#todo-title,
+#todo-done {
+  margin: 5px 10px;
 }
 
 #todo-list {
