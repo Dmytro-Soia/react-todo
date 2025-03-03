@@ -3,12 +3,19 @@ import { Todo } from './App';
 const NewTodoStructure = ({
   todo,
   checkDone,
+  deleteTodo,
 }: {
   todo: Todo;
   checkDone: (id: number, todo: Todo) => void;
+  deleteTodo: (id: number) => void;
 }) => {
   const handleCheck = () => {
     checkDone(todo.id, todo);
+  };
+
+  const handleDelete = () => {
+    deleteTodo(todo.id);
+    console.log(todo.id);
   };
   return (
     <li className="example">
@@ -21,6 +28,9 @@ const NewTodoStructure = ({
         id="todo-done"
         onChange={handleCheck}
       ></input>
+      <button id="delete_button" onClick={handleDelete}>
+        Delete
+      </button>
     </li>
   );
 };
