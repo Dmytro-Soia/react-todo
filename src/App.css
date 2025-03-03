@@ -68,12 +68,19 @@ html {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 5px;
+  border-radius: 20px 0px 0px 20px;
   margin: 5px;
   padding-left: 5px;
-
   height: 40px;
   background-color: #b9b28a;
+}
+
+#delete_button {
+  margin-right: 5px;
+  border-radius: 10px 0px 0px 10px;
+  border: 1px black solid;
+  background-color: #f8f3d9;
+  padding-left: 7px;
 }
 
 #todo-date {
