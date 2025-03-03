@@ -1,16 +1,24 @@
-import { Todo } from "./App"
-import NewTodoStructure from "./NewTodoStructure"
+import { Todo } from './App';
+import NewTodoStructure from './NewTodoStructure';
 
-const TodoContainerElement = ({todos, checkDone}: { todos: Todo[], checkDone: (id: number) => void }) => {
-    return (
+const TodoContainerElement = ({
+  todos,
+  checkDone,
+}: {
+  todos: Todo[];
+  checkDone: (id: number) => void;
+}) => {
+  return (
     <div id="container">
-        <ul id="todo-list">
-            {todos.map(todo => {
-                return <NewTodoStructure todo={todo} checkDone={checkDone}/>
-            })}
-        </ul>
+      <ul id="todo-list">
+        {todos.map((todo) => {
+          return (
+            <NewTodoStructure key={todo.id} todo={todo} checkDone={checkDone} />
+          );
+        })}
+      </ul>
     </div>
-    )
-}
+  );
+};
 
-export default TodoContainerElement
+export default TodoContainerElement;
