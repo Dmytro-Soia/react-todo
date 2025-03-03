@@ -26,5 +26,38 @@ export async function add_todo_to_api(
       done: done,
     }),
   });
-  return await fetchPost.json();
+  if (fetchPost.ok) {
+    return await fetchPost.json();
+  } else {
+    throw new Error('cannot post this todo');
+  }
+}
+
+export async function patch_todo_from_api(
+  id: number,
+  title: string,
+  due_date: string,
+  done: boolean,
+) {
+  const fetchPatch = await fetch(
+    `https://api.todos.in.jt-lab.ch/todos?id=eq.${id}`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/vnd.pgrst.object+json',
+        Prefer: 'return=representation',
+      },
+      body: JSON.stringify({
+        title: title,
+        due_date: due_date,
+        done: done,
+      }),
+    },
+  );
+  if (fetchPatch.ok) {
+    return await fetchPatch.json();
+  } else {
+    throw new Error('cannot edit this todo');
+  }
 }

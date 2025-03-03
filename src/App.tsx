@@ -3,7 +3,10 @@ import './App.css';
 import TodoContainerElement from './TodoContainerElement';
 import TodoInput from './TodoInput';
 import TodoSortSection from './TodoSortSection';
-import { get_todo_from_api } from './FetchApi/FetchAddTodo';
+import {
+  get_todo_from_api,
+  patch_todo_from_api,
+} from './FetchApi/FetchAddTodo';
 
 export interface Todo {
   id: number;
@@ -32,14 +35,23 @@ const App = () => {
       });
   }, []);
 
-  const checkDone = (id: number) => {
-    setTodos(
-      todos.map((todo) => {
-        return todo.id === id ? { ...todo, done: !todo.done } : todo;
-      }),
-    );
+  const checkDone = async (id: number, todo: Todo) => {
+    try {
+      await patch_todo_from_api(todo.id, todo.title, todo.due_date, !todo.done);
+      setTodos(
+        todos.map((todo) => {
+          if (todo.id === id) {
+            return { ...todo, done: !todo.done };
+          } else {
+            return todo;
+          }
+        }),
+      );
+    } catch {
+      console.error('fail_edit');
+      return todo;
+    }
   };
-
   return (
     <>
       <div>

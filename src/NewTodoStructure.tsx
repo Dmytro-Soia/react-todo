@@ -5,10 +5,10 @@ const NewTodoStructure = ({
   checkDone,
 }: {
   todo: Todo;
-  checkDone: (id: number) => void;
+  checkDone: (id: number, todo: Todo) => void;
 }) => {
   const handleCheck = () => {
-    checkDone(todo.id);
+    checkDone(todo.id, todo);
   };
   return (
     <li className="example">

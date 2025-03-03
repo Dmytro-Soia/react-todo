@@ -15,16 +15,20 @@ const TodoInput = ({ addTodo }: { addTodo: (todo: Todo) => void }) => {
     setDate(e.target.value);
   }
 
-  function handleAddTodo() {
-    addTodo({
-      id: Math.floor(Math.random() * 1000),
-      title: text,
-      context: '',
-      due_date: date,
-      done: false,
-    });
-    add_todo_to_api(text, date, false);
-    setText('');
+  async function handleAddTodo() {
+    try {
+      const newTodo = await add_todo_to_api(text, date, false);
+      addTodo({
+        id: newTodo.id,
+        title: text,
+        context: '',
+        due_date: date,
+        done: false,
+      });
+      setText('');
+    } catch {
+      console.error('Fail');
+    }
   }
 
   return (

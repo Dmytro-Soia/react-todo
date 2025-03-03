@@ -6,7 +6,7 @@ const TodoContainerElement = ({
   checkDone,
 }: {
   todos: Todo[];
-  checkDone: (id: number) => void;
+  checkDone: (id: number, todo: Todo) => void;
 }) => {
   return (
     <div id="container">
