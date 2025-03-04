@@ -15,7 +15,6 @@ const NewTodoStructure = ({
 
   const handleDelete = () => {
     deleteTodo(todo.id);
-    console.log(todo.id);
   };
   return (
     <li className="example">

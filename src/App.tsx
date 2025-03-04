@@ -63,7 +63,7 @@ const App = () => {
 
   return (
     <>
-      <div>
+      <div id='main'>
         <h1 id="app-name">To-Do List</h1>
         <TodoInput addTodo={addTodo} />
         <TodoSortSection />
