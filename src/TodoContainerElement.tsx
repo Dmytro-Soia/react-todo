@@ -10,6 +10,15 @@ const TodoContainerElement = ({
   checkDone: (id: number, todo: Todo) => void;
   deleteTodo: (id: number) => void;
 }) => {
+
+  // const sorted = 'asc'
+
+  // if (sorted === 'asc'){
+  //   const filteredTodos = todos.sort((a, b) => a.name > b.name)
+  // } else {
+  //   const filteredTodos = todos
+  // }
+
   return (
     <div id="container">
       <ul id="todo-list">
