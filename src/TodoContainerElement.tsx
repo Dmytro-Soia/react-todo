@@ -3,26 +3,27 @@ import NewTodoStructure from './NewTodoStructure';
 
 const TodoContainerElement = ({
   todos,
+  sort,
   checkDone,
   deleteTodo,
 }: {
   todos: Todo[];
+  sort: string;
   checkDone: (id: number, todo: Todo) => void;
   deleteTodo: (id: number) => void;
 }) => {
+  let todosCopie = todos;
 
-  // const sorted = 'asc'
-
-  // if (sorted === 'asc'){
-  //   const filteredTodos = todos.sort((a, b) => a.name > b.name)
-  // } else {
-  //   const filteredTodos = todos
-  // }
+  if (sort === 'done') {
+    todosCopie = todosCopie.filter((todo) => todo.done === true);
+  } else if (sort === 'undone') {
+    todosCopie = todosCopie.filter((todo) => todo.done === false);
+  }
 
   return (
     <div id="container">
       <ul id="todo-list">
-        {todos.map((todo) => {
+        {todosCopie.map((todo) => {
           return (
             <NewTodoStructure
               key={todo.id}

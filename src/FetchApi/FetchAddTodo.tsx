@@ -73,7 +73,7 @@ export async function delete_todo_from_api(id: number) {
     },
   );
   if (fetchDelete.ok) {
-    return fetchDelete
+    return fetchDelete;
   } else {
     throw new Error('cannot edit this todo');
   }

@@ -9,10 +9,15 @@ const DefaultButton = ({
   buttonText,
   buttonId,
   onClick,
-  buttonStatus
+  buttonStatus,
 }: DefaultButtonProps) => {
   return (
-    <button className="button" disabled={buttonStatus} onClick={onClick} id={buttonId}>
+    <button
+      className="button"
+      disabled={buttonStatus}
+      onClick={onClick}
+      id={buttonId}
+    >
       {buttonText}
     </button>
   );
