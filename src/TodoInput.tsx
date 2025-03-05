@@ -11,6 +11,14 @@ const TodoInput = ({ addTodo }: { addTodo: (todo: Todo) => void }) => {
     setText(e.target.value);
   }
 
+  function buttonDisEnStatus() {
+    if (text.length < 1 || date === '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   async function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     setDate(e.target.value);
   }
@@ -46,6 +54,7 @@ const TodoInput = ({ addTodo }: { addTodo: (todo: Todo) => void }) => {
         id="due-date"
       ></input>
       <DefaultButton
+        buttonStatus={buttonDisEnStatus()}
         buttonText="Add To-Do"
         onClick={handleAddTodo}
         buttonId="add-todo"

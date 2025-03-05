@@ -19,6 +19,7 @@ export interface Todo {
 
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [sort, setSort] = useState<string>('none');
 
   //Charging data from API
   useEffect(() => {
@@ -30,6 +31,56 @@ const App = () => {
         console.log(err.message);
       });
   }, []);
+
+  //Sorting function logic
+  function byName(a: Todo, b: Todo) {
+    if (a.title < b.title) {
+      return -1;
+    }
+    if (a.title > b.title) {
+      return 1;
+    }
+    return 0;
+  }
+
+  function byDate(a: Todo, b: Todo) {
+    if (a.due_date < b.due_date) {
+      return -1;
+    }
+    if (a.due_date > b.due_date) {
+      return 1;
+    }
+    return 0;
+  }
+
+  if (sort === 'none') {
+    todos.sort();
+  } else if (sort === 'name') {
+    todos.sort(byName);
+  } else if (sort === 'date') {
+    todos.sort(byDate);
+  }
+
+  //Set sorting options
+  const sortByName = () => {
+    setSort('name');
+  };
+
+  const sortByDate = () => {
+    setSort('date');
+  };
+
+  const sortAll = () => {
+    setSort('none');
+  };
+
+  const sortDone = () => {
+    setSort('done');
+  };
+
+  const sortUndone = () => {
+    setSort('undone');
+  };
 
   //Add todo function
   const addTodo = (todo: Todo) => {
@@ -63,11 +114,18 @@ const App = () => {
 
   return (
     <>
-      <div>
+      <div id="main">
         <h1 id="app-name">To-Do List</h1>
         <TodoInput addTodo={addTodo} />
-        <TodoSortSection />
+        <TodoSortSection
+          sortByName={sortByName}
+          sortByDate={sortByDate}
+          sortDone={sortDone}
+          sortUndone={sortUndone}
+          sortAll={sortAll}
+        />
         <TodoContainerElement
+          sort={sort}
           todos={todos}
           checkDone={checkDone}
           deleteTodo={deleteTodo}
