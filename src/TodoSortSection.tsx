@@ -3,13 +3,11 @@ import DefaultButton from './DefaultButton';
 const TodoSortSection = ({
   sortByName,
   sortByDate,
-  sortAll,
   sortDone,
   sortUndone,
 }: {
   sortByName: () => void;
   sortByDate: () => void;
-  sortAll: () => void;
   sortDone: () => void;
   sortUndone: () => void;
 }) => {
@@ -39,12 +37,6 @@ const TodoSortSection = ({
         buttonText="Undone"
         buttonId="undone"
         onClick={sortUndone}
-      />
-      <DefaultButton
-        buttonStatus={false}
-        buttonText="All"
-        buttonId="all"
-        onClick={sortAll}
       />
     </div>
   );
