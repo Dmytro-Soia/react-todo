@@ -53,9 +53,7 @@ const App = () => {
     return 0;
   }
 
-  if (sort === 'none') {
-    todos.sort();
-  } else if (sort === 'name') {
+  if (sort === 'name') {
     todos.sort(byName);
   } else if (sort === 'date') {
     todos.sort(byDate);
@@ -68,10 +66,6 @@ const App = () => {
 
   const sortByDate = () => {
     setSort('date');
-  };
-
-  const sortAll = () => {
-    setSort('none');
   };
 
   const sortDone = () => {
@@ -122,7 +116,6 @@ const App = () => {
           sortByDate={sortByDate}
           sortDone={sortDone}
           sortUndone={sortUndone}
-          sortAll={sortAll}
         />
         <TodoContainerElement
           sort={sort}

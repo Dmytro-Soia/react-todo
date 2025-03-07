@@ -45,8 +45,9 @@ html {
   display: flex;
   position: relative;
   flex-direction: row;
+  padding-left: 20px;
   align-items: center;
-  width: 427px;
+  width: 400px;
 }
 
 #date,
