@@ -86,12 +86,19 @@ html {
   background-color: #b9b28a;
 }
 
-#delete_button {
+#delete-button {
   margin-right: 5px;
-  border-radius: 10px 0px 0px 10px;
+  border-radius: 0px 0px 0px 0px;
   border: 1px black solid;
   background-color: #f8f3d9;
-  padding-left: 7px;
+  padding-left: 4px;
+  margin-left: 5px;
+}
+
+#edit-button {
+  background-color: #f8f3d9;
+  border-radius: 10px 0px 0px 10px;
+  border: 1px black solid;
 }
 
 #todo-date {

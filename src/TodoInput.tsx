@@ -1,26 +1,38 @@
 import { Todo } from './App';
 import DefaultButton from './DefaultButton';
-import { useState } from 'react';
-import { add_todo_to_api } from './FetchApi/FetchAddTodo';
+import { add_todo_to_api, patch_todo_from_api } from './FetchApi/FetchAddTodo';
 
-const TodoInput = ({ addTodo }: { addTodo: (todo: Todo) => void }) => {
-  const [text, setText] = useState('');
-  const [date, setDate] = useState('');
-
-  async function handleTextChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setText(e.target.value);
-  }
-
+const TodoInput = ({
+  addTodo,
+  handleTitleChange,
+  handleDateChange,
+  currentTodo,
+  isEditing,
+  text,
+  date,
+  setIsEditing,
+  setTitle,
+  setDate,
+  editArray,
+}: {
+  addTodo: (todo: Todo) => void;
+  handleTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  currentTodo: Todo | undefined;
+  isEditing: boolean;
+  setIsEditing: (isEditing: boolean) => void;
+  setTitle: (text: string) => void;
+  setDate: (date: string) => void;
+  text: string;
+  date: string;
+  editArray: (todo: Todo) => void;
+}) => {
   function buttonDisEnStatus() {
     if (text.length < 1 || date === '') {
       return true;
     } else {
       return false;
     }
-  }
-
-  async function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setDate(e.target.value);
   }
 
   async function handleAddTodo() {
@@ -33,9 +45,23 @@ const TodoInput = ({ addTodo }: { addTodo: (todo: Todo) => void }) => {
         due_date: date,
         done: false,
       });
-      setText('');
     } catch {
       console.error('Fail');
+    }
+  }
+
+  async function handleUpdateTodo() {
+    try {
+      if (currentTodo) {
+        await patch_todo_from_api(currentTodo.id, text, date, currentTodo.done);
+        editArray(currentTodo);
+      }
+    } catch {
+      console.error('Fail');
+    } finally {
+      setIsEditing(false);
+      setDate('');
+      setTitle('');
     }
   }
 
@@ -43,7 +69,7 @@ const TodoInput = ({ addTodo }: { addTodo: (todo: Todo) => void }) => {
     <div id="input-section">
       <input
         value={text}
-        onChange={handleTextChange}
+        onChange={handleTitleChange}
         type="text"
         id="input"
       ></input>
@@ -55,8 +81,8 @@ const TodoInput = ({ addTodo }: { addTodo: (todo: Todo) => void }) => {
       ></input>
       <DefaultButton
         buttonStatus={buttonDisEnStatus()}
-        buttonText="Add To-Do"
-        onClick={handleAddTodo}
+        buttonText={isEditing ? 'Update Todo' : 'Add Todo'}
+        onClick={isEditing ? handleUpdateTodo : handleAddTodo}
         buttonId="add-todo"
       />
     </div>
