@@ -20,7 +20,10 @@ export interface Todo {
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [sort, setSort] = useState<string>('none');
-
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [currentTodo, setCurrentTodo] = useState<Todo>();
+  const [text, setTitle] = useState<string>('');
+  const [date, setDate] = useState<string>('');
   //Charging data from API
   useEffect(() => {
     get_todo_from_api()
@@ -32,6 +35,20 @@ const App = () => {
       });
   }, []);
 
+  function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setTitle(e.target.value);
+  }
+
+  function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setDate(e.target.value);
+  }
+
+  const chosenTodo = (currentTodo: Todo) => {
+    setTitle(currentTodo.title);
+    setDate(currentTodo.due_date);
+  };
+
+  console.log(todos);
   //Sorting function logic
   function byName(a: Todo, b: Todo) {
     if (a.title < b.title) {
@@ -81,6 +98,24 @@ const App = () => {
     setTodos([...todos, todo]);
   };
 
+  //Editing
+  const startEdit = (todo: Todo) => {
+    setIsEditing(true);
+    setCurrentTodo(todo);
+    console.log(isEditing);
+    console.log(currentTodo);
+  };
+
+  const editArray = (todo: Todo) => {
+    setTodos(
+      todos.map((todos) =>
+        todo.id === todos.id
+          ? { ...todos, title: text, due_date: date }
+          : todos,
+      ),
+    );
+  };
+
   //Change "done" status in array and API
   const checkDone = async (id: number, todo: Todo) => {
     try {
@@ -110,7 +145,19 @@ const App = () => {
     <>
       <div id="main">
         <h1 id="app-name">To-Do List</h1>
-        <TodoInput addTodo={addTodo} />
+        <TodoInput
+          addTodo={addTodo}
+          handleTitleChange={handleTitleChange}
+          handleDateChange={handleDateChange}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+          text={text}
+          setTitle={setTitle}
+          date={date}
+          setDate={setDate}
+          currentTodo={currentTodo}
+          editArray={editArray}
+        />
         <TodoSortSection
           sortByName={sortByName}
           sortByDate={sortByDate}
@@ -120,7 +167,9 @@ const App = () => {
         <TodoContainerElement
           sort={sort}
           todos={todos}
+          chosenTodo={chosenTodo}
           checkDone={checkDone}
+          startEdit={startEdit}
           deleteTodo={deleteTodo}
         />
       </div>

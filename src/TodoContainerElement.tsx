@@ -4,13 +4,17 @@ import NewTodoStructure from './NewTodoStructure';
 const TodoContainerElement = ({
   todos,
   sort,
+  chosenTodo,
   checkDone,
   deleteTodo,
+  startEdit,
 }: {
   todos: Todo[];
   sort: string;
+  chosenTodo: (currentTodo: Todo) => void;
   checkDone: (id: number, todo: Todo) => void;
   deleteTodo: (id: number) => void;
+  startEdit: (todo: Todo) => void;
 }) => {
   let todosCopie = todos;
 
@@ -28,6 +32,8 @@ const TodoContainerElement = ({
             <NewTodoStructure
               key={todo.id}
               todo={todo}
+              chosenTodo={chosenTodo}
+              startEdit={startEdit}
               checkDone={checkDone}
               deleteTodo={deleteTodo}
             />
