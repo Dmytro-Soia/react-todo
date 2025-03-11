@@ -1,11 +1,15 @@
 export async function get_todo_from_api() {
-  const fetchGet = await fetch('https://api.todos.in.jt-lab.ch/todos', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  return await fetchGet.json();
+  try {
+    const fetchGet = await fetch('https://api.todos.in.jt-lab.ch/todos', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return await fetchGet.json();
+  } catch {
+    throw new Error('Cannot get todos from API');
+  }
 }
 
 export async function add_todo_to_api(
@@ -29,7 +33,7 @@ export async function add_todo_to_api(
   if (fetchPost.ok) {
     return await fetchPost.json();
   } else {
-    throw new Error('cannot post this todo');
+    throw new Error('Cannot post this todo');
   }
 }
 
@@ -58,7 +62,7 @@ export async function patch_todo_from_api(
   if (fetchPatch.ok) {
     return await fetchPatch.json();
   } else {
-    throw new Error('cannot edit this todo');
+    throw new Error('Cannot edit this todo');
   }
 }
 
@@ -66,7 +70,7 @@ export async function delete_todo_from_api(id: number) {
   const fetchDelete = await fetch(
     `https://api.todos.in.jt-lab.ch/todos?id=eq.${id}`,
     {
-      method: 'DELETE',
+      method: '',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -75,6 +79,6 @@ export async function delete_todo_from_api(id: number) {
   if (fetchDelete.ok) {
     return fetchDelete;
   } else {
-    throw new Error('cannot edit this todo');
+    throw new Error('Cannot delete this todo');
   }
 }
