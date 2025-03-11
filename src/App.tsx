@@ -39,7 +39,7 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setError([]);
-    }, 200000000);
+    }, 5000);
     return () => clearTimeout(timer);
   }, [error]);
   //Handle input changes

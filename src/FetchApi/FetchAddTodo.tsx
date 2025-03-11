@@ -70,7 +70,7 @@ export async function delete_todo_from_api(id: number) {
   const fetchDelete = await fetch(
     `https://api.todos.in.jt-lab.ch/todos?id=eq.${id}`,
     {
-      method: '',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
