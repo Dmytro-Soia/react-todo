@@ -20,21 +20,29 @@ export interface Todo {
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [sort, setSort] = useState<string>('none');
+  const [error, setError] = useState<string>();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [currentTodo, setCurrentTodo] = useState<Todo>();
-  const [text, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
   const [date, setDate] = useState<string>('');
-  //Charging data from API
+  //Get todos from API
   useEffect(() => {
     get_todo_from_api()
       .then((data) => {
         setTodos(data);
       })
       .catch((err) => {
-        console.log(err.message);
+        setError(err);
       });
   }, []);
-
+  //TImeout to remove error message
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setError('');
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [error]);
+  //Handle input changes
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value);
   }
@@ -47,8 +55,6 @@ const App = () => {
     setTitle(currentTodo.title);
     setDate(currentTodo.due_date);
   };
-
-  console.log(todos);
   //Sorting function logic
   function byName(a: Todo, b: Todo) {
     if (a.title < b.title) {
@@ -102,15 +108,13 @@ const App = () => {
   const startEdit = (todo: Todo) => {
     setIsEditing(true);
     setCurrentTodo(todo);
-    console.log(isEditing);
-    console.log(currentTodo);
   };
 
   const editArray = (todo: Todo) => {
     setTodos(
       todos.map((todos) =>
         todo.id === todos.id
-          ? { ...todos, title: text, due_date: date }
+          ? { ...todos, title: title, due_date: date }
           : todos,
       ),
     );
@@ -130,20 +134,25 @@ const App = () => {
         }),
       );
     } catch {
-      console.error('fail_edit');
+      setError('Error: Cannot change status');
       return todo;
     }
   };
 
   //Delete todo function
-  const deleteTodo = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-    delete_todo_from_api(id);
+  const deleteTodo = async (id: number) => {
+    try {
+      await delete_todo_from_api(id);
+      setTodos(todos.filter((todo) => todo.id !== id));
+    } catch {
+      setError('Error: Cannot delete todo');
+    }
   };
 
   return (
     <>
       <div id="main">
+        <p id="error">{error}</p>
         <h1 id="app-name">To-Do List</h1>
         <TodoInput
           addTodo={addTodo}
@@ -151,12 +160,13 @@ const App = () => {
           handleDateChange={handleDateChange}
           isEditing={isEditing}
           setIsEditing={setIsEditing}
-          text={text}
+          text={title}
           setTitle={setTitle}
           date={date}
           setDate={setDate}
           currentTodo={currentTodo}
           editArray={editArray}
+          setError={setError}
         />
         <TodoSortSection
           sortByName={sortByName}

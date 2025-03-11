@@ -14,6 +14,7 @@ const TodoInput = ({
   setTitle,
   setDate,
   editArray,
+  setError,
 }: {
   addTodo: (todo: Todo) => void;
   handleTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -26,6 +27,7 @@ const TodoInput = ({
   text: string;
   date: string;
   editArray: (todo: Todo) => void;
+  setError: (error: string) => void;
 }) => {
   function buttonDisEnStatus() {
     if (text.length < 1 || date === '') {
@@ -46,7 +48,7 @@ const TodoInput = ({
         done: false,
       });
     } catch {
-      console.error('Fail');
+      setError('Fail to add todo');
     }
   }
 
@@ -57,7 +59,7 @@ const TodoInput = ({
         editArray(currentTodo);
       }
     } catch {
-      console.error('Fail');
+      setError('Fail to update todo');
     } finally {
       setIsEditing(false);
       setDate('');
