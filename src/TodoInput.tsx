@@ -27,7 +27,7 @@ const TodoInput = ({
   text: string;
   date: string;
   editArray: (todo: Todo) => void;
-  setError: (error: string[]) => void;
+  setError: (error: string) => void;
 }) => {
   function buttonDisEnStatus() {
     if (text.length < 1 || date === '') {
@@ -48,7 +48,7 @@ const TodoInput = ({
         done: false,
       });
     } catch {
-      setError(['Fail to add todo']);
+      setError('Fail to add todo');
     }
   }
 
@@ -59,7 +59,7 @@ const TodoInput = ({
         editArray(currentTodo);
       }
     } catch {
-      setError(['Fail to update todo']);
+      setError('Fail to update todo');
     } finally {
       setIsEditing(false);
       setDate('');

@@ -20,7 +20,7 @@ export interface Todo {
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [sort, setSort] = useState<string>('none');
-  const [error, setError] = useState<string[]>([]);
+  const [error, setError] = useState<string>();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [currentTodo, setCurrentTodo] = useState<Todo>();
   const [title, setTitle] = useState<string>('');
@@ -32,13 +32,13 @@ const App = () => {
         setTodos(data);
       })
       .catch((err) => {
-        setError([err]);
+        setError(err);
       });
   }, []);
   //TImeout to remove error message
   useEffect(() => {
     const timer = setTimeout(() => {
-      setError([]);
+      setError('');
     }, 5000);
     return () => clearTimeout(timer);
   }, [error]);
@@ -134,7 +134,7 @@ const App = () => {
         }),
       );
     } catch {
-      setError(['Error: Cannot change status']);
+      setError('Error: Cannot change status');
       return todo;
     }
   };
@@ -145,7 +145,7 @@ const App = () => {
       await delete_todo_from_api(id);
       setTodos(todos.filter((todo) => todo.id !== id));
     } catch {
-      setError(['Error: Cannot delete todo']);
+      setError('Error: Cannot delete todo');
     }
   };
 
