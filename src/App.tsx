@@ -4,7 +4,7 @@ import TodoContainerElement from './TodoContainerElement';
 import TodoInput from './TodoInput';
 import TodoSortSection from './TodoSortSection';
 import { get_todo_from_api } from './FetchApi/FetchAddTodo';
-import { useError, useSort, useTodos } from './zustand';
+import { useError, useTodos } from './zustand';
 
 export interface Todo {
   id: number;
@@ -15,8 +15,7 @@ export interface Todo {
 }
 
 const App = () => {
-  const { todos, updateTodos } = useTodos();
-  const { sort, sortByName, sortByDate } = useSort();
+  const updateTodos = useTodos((status) => status.updateTodos);
   const { error, updateError } = useError();
 
   //Get todos from API
@@ -38,11 +37,6 @@ const App = () => {
   }, [error]);
 
   //Handle input changes
-  if (sort === 'name') {
-    todos.sort(sortByName);
-  } else if (sort === 'date') {
-    todos.sort(sortByDate);
-  }
   return (
     <>
       <div id="main">

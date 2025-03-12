@@ -35,9 +35,11 @@ const TodoInput = () => {
       });
     } catch {
       updateError('Fail to add todo');
+    } finally {
+      updateTitle('');
+      updateDate('');
     }
   }
-
   async function handleUpdateTodo() {
     try {
       await patch_todo_from_api(currentTodo.id, title, date, currentTodo.done);

@@ -87,38 +87,10 @@ export const useCurrentTodo = create<CurrentTodo>()((set) => ({
 interface Sort {
   sort: string;
   updateSort: (sortStatus: string) => void;
-  sortByName: (a: Todo, b: Todo) => number;
-  sortByDate: (a: Todo, b: Todo) => number;
-  sortDone: () => void;
-  sortUndone: () => void;
-  sortName: () => void;
-  sortDate: () => void;
 }
 export const useSort = create<Sort>()((set) => ({
   sort: 'none',
   updateSort: (sortStatus) => set({ sort: sortStatus }),
-  sortByName: (a, b) => {
-    if (a.title < b.title) {
-      return -1;
-    }
-    if (a.title > b.title) {
-      return 1;
-    }
-    return 0;
-  },
-  sortByDate: (a, b) => {
-    if (a.due_date < b.due_date) {
-      return -1;
-    }
-    if (a.due_date > b.due_date) {
-      return 1;
-    }
-    return 0;
-  },
-  sortDone: () => set(() => ({ sort: 'done' })),
-  sortUndone: () => set(() => ({ sort: 'undone' })),
-  sortName: () => set(() => ({ sort: 'name' })),
-  sortDate: () => set(() => ({ sort: 'date' })),
 }));
 
 interface Error {
