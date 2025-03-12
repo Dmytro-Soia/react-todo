@@ -1,21 +1,9 @@
-import { Todo } from './App';
 import NewTodoStructure from './NewTodoStructure';
+import { useSort, useTodos } from './zustand';
 
-const TodoContainerElement = ({
-  todos,
-  sort,
-  chosenTodo,
-  checkDone,
-  deleteTodo,
-  startEdit,
-}: {
-  todos: Todo[];
-  sort: string;
-  chosenTodo: (currentTodo: Todo) => void;
-  checkDone: (id: number, todo: Todo) => void;
-  deleteTodo: (id: number) => void;
-  startEdit: (todo: Todo) => void;
-}) => {
+const TodoContainerElement = () => {
+  const todos = useTodos((state) => state.todos);
+  const sort = useSort((state) => state.sort);
   let todosCopie = todos;
 
   if (sort === 'done') {
@@ -28,16 +16,7 @@ const TodoContainerElement = ({
     <div id="container">
       <ul id="todo-list">
         {todosCopie.map((todo) => {
-          return (
-            <NewTodoStructure
-              key={todo.id}
-              todo={todo}
-              chosenTodo={chosenTodo}
-              startEdit={startEdit}
-              checkDone={checkDone}
-              deleteTodo={deleteTodo}
-            />
-          );
+          return <NewTodoStructure key={todo.id} todo={todo} />;
         })}
       </ul>
     </div>
