@@ -1,36 +1,22 @@
-import { Todo } from './App';
 import DefaultButton from './DefaultButton';
 import { add_todo_to_api, patch_todo_from_api } from './FetchApi/FetchAddTodo';
+import { useCurrentTodo, useError, useForm, useTodos } from './zustand';
 
-const TodoInput = ({
-  addTodo,
-  handleTitleChange,
-  handleDateChange,
-  currentTodo,
-  isEditing,
-  text,
-  date,
-  setIsEditing,
-  setTitle,
-  setDate,
-  editArray,
-  setError,
-}: {
-  addTodo: (todo: Todo) => void;
-  handleTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  currentTodo: Todo | undefined;
-  isEditing: boolean;
-  setIsEditing: (isEditing: boolean) => void;
-  setTitle: (text: string) => void;
-  setDate: (date: string) => void;
-  text: string;
-  date: string;
-  editArray: (todo: Todo) => void;
-  setError: (error: string) => void;
-}) => {
+const TodoInput = () => {
+  const { editArray, addTodo } = useTodos();
+  const {
+    title,
+    date,
+    updateTitle,
+    updateDate,
+    handleTitleChange,
+    handleDateChange,
+  } = useForm();
+  const currentTodo = useCurrentTodo((state) => state.currentTodo);
+  const { isEditing, updateEdit } = useCurrentTodo();
+  const updateError = useError((state) => state.updateError);
   function buttonDisEnStatus() {
-    if (text.length < 1 || date === '') {
+    if (title.length < 1 || date === '') {
       return true;
     } else {
       return false;
@@ -39,38 +25,38 @@ const TodoInput = ({
 
   async function handleAddTodo() {
     try {
-      const newTodo = await add_todo_to_api(text, date, false);
+      const newTodo = await add_todo_to_api(title, date, false);
       addTodo({
         id: newTodo.id,
-        title: text,
+        title: title,
         context: '',
         due_date: date,
         done: false,
       });
     } catch {
-      setError('Fail to add todo');
+      updateError('Fail to add todo');
+    } finally {
+      updateTitle('');
+      updateDate('');
     }
   }
-
   async function handleUpdateTodo() {
     try {
-      if (currentTodo) {
-        await patch_todo_from_api(currentTodo.id, text, date, currentTodo.done);
-        editArray(currentTodo);
-      }
+      await patch_todo_from_api(currentTodo.id, title, date, currentTodo.done);
+      editArray(currentTodo, title, date);
     } catch {
-      setError('Fail to update todo');
+      updateError('Fail to update todo');
     } finally {
-      setIsEditing(false);
-      setDate('');
-      setTitle('');
+      updateEdit(false);
+      updateTitle('');
+      updateDate('');
     }
   }
 
   return (
     <div id="input-section">
       <input
-        value={text}
+        value={title}
         onChange={handleTitleChange}
         type="text"
         id="input"

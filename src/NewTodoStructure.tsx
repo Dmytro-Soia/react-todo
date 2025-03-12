@@ -1,28 +1,40 @@
 import { Todo } from './App';
+import {
+  delete_todo_from_api,
+  patch_todo_from_api,
+} from './FetchApi/FetchAddTodo';
+import { useCurrentTodo, useError, useForm, useTodos } from './zustand';
 
-const NewTodoStructure = ({
-  todo,
-  chosenTodo,
-  checkDone,
-  deleteTodo,
-  startEdit,
-}: {
-  todo: Todo;
-  chosenTodo: (currentTodo: Todo) => void;
-  checkDone: (id: number, todo: Todo) => void;
-  deleteTodo: (id: number) => void;
-  startEdit: (todo: Todo) => void;
-}) => {
-  const handleCheck = () => {
-    checkDone(todo.id, todo);
+const NewTodoStructure = ({ todo }: { todo: Todo }) => {
+  const updateEdit = useCurrentTodo((state) => state.updateEdit);
+  const { updateCurrentTodo } = useCurrentTodo();
+  const { updateTitle, updateDate } = useForm();
+  const { checkDoneStatus, deleteTodo } = useTodos();
+  const updateError = useError((state) => state.updateError);
+
+  const handleCheck = async () => {
+    try {
+      await patch_todo_from_api(todo.id, todo.title, todo.due_date, !todo.done);
+      checkDoneStatus(todo.id);
+    } catch {
+      updateError('Error: Cannot update todo');
+    }
   };
 
-  const handleEdit = () => {
-    startEdit(todo);
-    chosenTodo(todo);
+  const handleDelete = async () => {
+    try {
+      await delete_todo_from_api(todo.id);
+      deleteTodo(todo.id);
+    } catch {
+      updateError('Error: Cannot delete todo');
+    }
   };
-  const handleDelete = () => {
-    deleteTodo(todo.id);
+
+  const handleEdit = async () => {
+    updateEdit(true);
+    updateCurrentTodo(todo);
+    updateTitle(todo.title);
+    updateDate(todo.due_date);
   };
   return (
     <li className="example">

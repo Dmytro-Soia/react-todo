@@ -1,16 +1,21 @@
 import DefaultButton from './DefaultButton';
+import { useSort } from './zustand';
+const TodoSortSection = () => {
+  const updateSort = useSort((state) => state.updateSort);
 
-const TodoSortSection = ({
-  sortByName,
-  sortByDate,
-  sortDone,
-  sortUndone,
-}: {
-  sortByName: () => void;
-  sortByDate: () => void;
-  sortDone: () => void;
-  sortUndone: () => void;
-}) => {
+  function sortDate() {
+    updateSort('date');
+  }
+  function sortName() {
+    updateSort('title');
+  }
+  function sortDone() {
+    updateSort('done');
+  }
+  function sortUndone() {
+    updateSort('undone');
+  }
+
   return (
     <div id="sort-section">
       <h2 id="sort-header">Sort By:</h2>
@@ -18,13 +23,13 @@ const TodoSortSection = ({
         buttonStatus={false}
         buttonText="Date"
         buttonId="date"
-        onClick={sortByDate}
+        onClick={sortDate}
       />
       <DefaultButton
         buttonStatus={false}
         buttonText="Name"
         buttonId="name"
-        onClick={sortByName}
+        onClick={sortName}
       />
       <DefaultButton
         buttonStatus={false}
