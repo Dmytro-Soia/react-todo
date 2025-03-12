@@ -12,6 +12,11 @@ const NewTodoStructure = ({ todo }: { todo: Todo }) => {
   const { checkDoneStatus, deleteTodo } = useTodos();
   const updateError = useError((state) => state.updateError);
 
+  let newColor = 'black';
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const tenDays = 1000 * 60 * 60 * 24 * 10;
+
   const handleCheck = async () => {
     try {
       await patch_todo_from_api(todo.id, todo.title, todo.due_date, !todo.done);
@@ -30,6 +35,15 @@ const NewTodoStructure = ({ todo }: { todo: Todo }) => {
     }
   };
 
+  if (new Date(todo.due_date) < today) {
+    newColor = 'red';
+  } else if (new Date(todo.due_date).getDate() === today.getDate()) {
+    newColor = 'blue';
+  } else if (new Date(todo.due_date).getTime() < today.getTime() + tenDays) {
+    newColor = 'yellow';
+  } else {
+    newColor = 'green';
+  }
   const handleEdit = async () => {
     updateEdit(true);
     updateCurrentTodo(todo);
@@ -39,7 +53,9 @@ const NewTodoStructure = ({ todo }: { todo: Todo }) => {
   return (
     <li className="example">
       <p id="todo-title">{todo.title}</p>
-      <p id="todo-date">{todo.due_date}</p>
+      <p style={{ color: newColor }} id="todo-date">
+        {todo.due_date}
+      </p>
       <input
         type="checkbox"
         checked={todo.done}
