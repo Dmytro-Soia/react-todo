@@ -14,7 +14,7 @@ const NewTodoStructure = ({ todo }: { todo: Todo }) => {
 
   let newColor = 'black';
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  today.setHours(1, 0, 0, 0);
   const tenDays = 1000 * 60 * 60 * 24 * 10;
 
   const handleCheck = async () => {
@@ -37,7 +37,7 @@ const NewTodoStructure = ({ todo }: { todo: Todo }) => {
 
   if (new Date(todo.due_date) < today) {
     newColor = 'red';
-  } else if (new Date(todo.due_date).getDate() === today.getDate()) {
+  } else if (new Date(todo.due_date).getTime() === today.getTime()) {
     newColor = 'blue';
   } else if (new Date(todo.due_date).getTime() < today.getTime() + tenDays) {
     newColor = 'yellow';
