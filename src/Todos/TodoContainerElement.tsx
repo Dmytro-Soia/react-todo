@@ -1,6 +1,6 @@
-import { Todo } from './App';
+import { Todo } from '../App';
 import NewTodoStructure from './NewTodoStructure';
-import { useSort, useTodos } from './zustand';
+import { useSort, useTodos } from '../zustand';
 
 const TodoContainerElement = () => {
   const todos = useTodos((state) => state.todos);

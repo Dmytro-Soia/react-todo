@@ -1,5 +1,5 @@
-import DefaultButton from './DefaultButton';
-import { useSort } from './zustand';
+import DefaultButton from '../DefaultButton';
+import { useSort } from '../zustand';
 const TodoSortSection = () => {
   const updateSort = useSort((state) => state.updateSort);
 

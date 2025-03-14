@@ -71,9 +71,6 @@ export async function delete_todo_from_api(id: number) {
     `https://api.todos.in.jt-lab.ch/todos?id=eq.${id}`,
     {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     },
   );
   if (fetchDelete.ok) {

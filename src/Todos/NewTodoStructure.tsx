@@ -1,9 +1,6 @@
-import { Todo } from './App';
-import {
-  delete_todo_from_api,
-  patch_todo_from_api,
-} from './FetchApi/FetchAddTodo';
-import { useCurrentTodo, useError, useForm, useTodos } from './zustand';
+import { useCurrentTodo, useError, useForm, useTodos } from '../zustand';
+import { Todo } from '../App';
+import { delete_todo_from_api, patch_todo_from_api } from './FetchAddTodo';
 
 const NewTodoStructure = ({ todo }: { todo: Todo }) => {
   const updateEdit = useCurrentTodo((state) => state.updateEdit);

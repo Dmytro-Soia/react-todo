@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Todo } from './App';
+import { Categorie, Todo } from './App';
 
 interface Todos {
   todos: Todo[];
@@ -100,4 +100,54 @@ interface Error {
 export const useError = create<Error>()((set) => ({
   error: '',
   updateError: (newError) => set({ error: newError }),
+}));
+
+interface CategoriesStore {
+  categories: Categorie[];
+  updateCategories: (newCategoriess: Categorie[]) => void;
+  addCategories: (newCategory: Categorie) => void;
+  deleteCategory: (id: number) => void;
+}
+export const useCategories = create<CategoriesStore>()((set) => ({
+  categories: [],
+  updateCategories: (newCategories) => set({ categories: newCategories }),
+  addCategories: (newCategory) => {
+    set((state) => ({
+      categories: [...state.categories, newCategory],
+    }));
+  },
+  deleteCategory: (id) => {
+    set((state) => ({
+      categories: state.categories.filter((category) => category.id !== id),
+    }));
+  },
+}));
+
+interface CategoriesInput {
+  title: string;
+  color: string;
+  updateTitle: (newCategorieTitle: string) => void;
+  updateColor: (newColor: string) => void;
+  handleTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleColorChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+export const useCategoryInput = create<CategoriesInput>()((set) => ({
+  title: '',
+  color: '#ffffff',
+  updateTitle: (newTitle) => {
+    set({ title: newTitle });
+  },
+  updateColor: (newColor) => {
+    set({ color: newColor });
+  },
+  handleTitleChange: (e) => {
+    set(() => ({
+      title: e.target.value,
+    }));
+  },
+  handleColorChange: (e) => {
+    set(() => ({
+      color: e.target.value,
+    }));
+  },
 }));

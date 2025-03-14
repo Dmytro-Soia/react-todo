@@ -1,6 +1,6 @@
-import DefaultButton from './DefaultButton';
-import { add_todo_to_api, patch_todo_from_api } from './FetchApi/FetchAddTodo';
-import { useCurrentTodo, useError, useForm, useTodos } from './zustand';
+import DefaultButton from '../DefaultButton';
+import { add_todo_to_api, patch_todo_from_api } from './FetchAddTodo';
+import { useCurrentTodo, useError, useForm, useTodos } from '../zustand';
 
 const TodoInput = () => {
   const { editArray, addTodo } = useTodos();
