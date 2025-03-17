@@ -84,4 +84,4 @@ pnpm preview
   - Swagger: for testing and documentation API
 
 - Styling:
-  -CSS
+  - CSS
