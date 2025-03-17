@@ -23,7 +23,7 @@ const NewTodoStructure = ({ todo }: { todo: Todo }) => {
   const categories = useCategories((state) => state.categories);
   const { updateCwT } = useCwT();
   const todos = useTodos((state) => state.todos);
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<number>(0);
 
   let newColor = 'black';
   const today = new Date();
@@ -68,19 +68,23 @@ const NewTodoStructure = ({ todo }: { todo: Todo }) => {
 
   const fetchTodoCategories = async () => {
     const existedCategorie = todos.find((t: Todo) => t.id === todo.id);
-    if (existedCategorie?.categories) {
-      setSelectedCategory(existedCategorie.categories[0].id.toString());
+
+    if (existedCategorie?.categories && existedCategorie.categories[0]) {
+      setSelectedCategory(existedCategorie.categories[0].id);
+      console.log(existedCategorie.categories[0].id);
     } else {
-      setSelectedCategory('');
+      setSelectedCategory(0);
     }
-    fetchTodoCategories()
   };
-  
+
+  useEffect(() => {
+    fetchTodoCategories();
+  }, [todos, todo.id]);
 
   const handleCategoryChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    const categorieId = event.target.value;
+    const categorieId = Number(event.target.value);
     setSelectedCategory(categorieId);
     changeCategoryForTodos(categorieId, todo.id);
   };
@@ -122,7 +126,7 @@ const NewTodoStructure = ({ todo }: { todo: Todo }) => {
         value={selectedCategory}
         onChange={handleCategoryChange}
       >
-        <option value={''}>Choose category</option>
+        <option value={0}>Choose category</option>
         {categorieOptions}
       </select>
       <button id="delete-button" onClick={handleDelete}>

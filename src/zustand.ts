@@ -84,7 +84,7 @@ export const useCurrentTodo = create<CurrentTodo>()((set) => ({
     context: '',
     due_date: '',
     done: false,
-    categories: [{ id: 0, name: '', color: '' }],
+    categories: [{ id: 0, title: '', color: '' }],
   },
   isEditing: false,
   updateCurrentTodo: (newCurrentTodo) => set({ currentTodo: newCurrentTodo }),

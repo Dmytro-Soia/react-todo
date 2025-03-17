@@ -13,7 +13,7 @@ export async function get_cwt_from_api() {
 }
 
 export async function changeCategoryForTodos(
-  category_id: string,
+  category_id: number,
   todo_id: number,
 ): Promise<void> {
   try {
@@ -22,12 +22,12 @@ export async function changeCategoryForTodos(
     );
     const categoriesTodos = await response.json();
     const existingRelation = categoriesTodos.find(
-      (item: { category_id: string; todo_id: number }) =>
+      (item: { category_id: number; todo_id: number }) =>
         item.todo_id === todo_id,
     );
 
     if (existingRelation) {
-      if (category_id === '') {
+      if (category_id === 0) {
         await fetch(
           `https://api.todos.in.jt-lab.ch/categories_todos?todo_id=eq.${existingRelation.todo_id}`,
           {
