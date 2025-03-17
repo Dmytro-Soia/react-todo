@@ -130,7 +130,7 @@ html {
   justify-content: top;
   align-items: center;
   border-radius: 5px;
-  width: 500px;
+  width: 550px;
   height: 650px;
   border: 1px solid black;
   background-color: #ebe5c2;
@@ -147,7 +147,8 @@ html {
   background-color: #b9b28a;
 }
 
-#delete-button {
+#delete-button,
+#select-categorie {
   margin-right: 5px;
   border-radius: 0px 0px 0px 0px;
   border: 1px black solid;
@@ -188,6 +189,15 @@ html {
 }
 
 #error {
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+  background-color: red;
+  border-radius: 50px;
+  padding: 0px 5px;
+}
+
+#error-categories {
   display: flex;
   justify-content: center;
   font-size: 25px;

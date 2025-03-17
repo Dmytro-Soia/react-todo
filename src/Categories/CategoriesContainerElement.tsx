@@ -2,7 +2,6 @@ import NewCategoriesStructure from './NewCategoriesStructure';
 import { useCategories } from '../zustand';
 const CategoriesContainerElement = () => {
   const categories = useCategories((state) => state.categories);
-  console.log(categories);
 
   return (
     <div id="container">

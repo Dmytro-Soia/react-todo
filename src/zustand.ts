@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Categorie, Todo } from './App';
+import { Categorie, CwT, Todo } from './App';
 
 interface Todos {
   todos: Todo[];
@@ -78,7 +78,14 @@ interface CurrentTodo {
   updateEdit: (editStatus: boolean) => void;
 }
 export const useCurrentTodo = create<CurrentTodo>()((set) => ({
-  currentTodo: { id: 0, title: '', context: '', due_date: '', done: false },
+  currentTodo: {
+    id: 0,
+    title: '',
+    context: '',
+    due_date: '',
+    done: false,
+    categories: [{ id: 0, name: '', color: '' }],
+  },
   isEditing: false,
   updateCurrentTodo: (newCurrentTodo) => set({ currentTodo: newCurrentTodo }),
   updateEdit: (editStatus) => set({ isEditing: editStatus }),
@@ -133,7 +140,7 @@ interface CategoriesInput {
 }
 export const useCategoryInput = create<CategoriesInput>()((set) => ({
   title: '',
-  color: '#ffffff',
+  color: '',
   updateTitle: (newTitle) => {
     set({ title: newTitle });
   },
@@ -150,4 +157,22 @@ export const useCategoryInput = create<CategoriesInput>()((set) => ({
       color: e.target.value,
     }));
   },
+}));
+
+interface ErrorCategories {
+  errorCat: string;
+  updateCatError: (newCatError: string) => void;
+}
+export const useErrorCategories = create<ErrorCategories>()((set) => ({
+  errorCat: '',
+  updateCatError: (newCatError) => set({ errorCat: newCatError }),
+}));
+
+interface CategoriesWithTodos {
+  CwT: CwT[];
+  updateCwT: (newCwT: CwT[]) => void;
+}
+export const useCwT = create<CategoriesWithTodos>()((set) => ({
+  CwT: [],
+  updateCwT: (newCwT) => set({ CwT: newCwT }),
 }));

@@ -1,17 +1,29 @@
 import DefaultButton from '../DefaultButton';
-import { useCategories, useCategoryInput } from '../zustand';
+import {
+  useCategories,
+  useCategoryInput,
+  useErrorCategories,
+} from '../zustand';
 import { add_category_to_api } from './fecthCategories';
 
 const CategoriesInput = () => {
   const { title, color, handleTitleChange, handleColorChange } =
     useCategoryInput();
   const addCategory = useCategories((state) => state.addCategories);
+  const updateCatError = useErrorCategories((state) => state.updateCatError);
+  function buttonDisEnStatus() {
+    if (title.length < 1 || color === '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
   async function handleAddCategorie() {
     try {
       const newCategorie = await add_category_to_api(title, color);
       addCategory(newCategorie);
     } catch {
-      console.log('errrror');
+      updateCatError('Fail to add this categorie');
     }
   }
   return (
@@ -29,7 +41,7 @@ const CategoriesInput = () => {
         id="color-category"
       ></input>
       <DefaultButton
-        buttonStatus={false}
+        buttonStatus={buttonDisEnStatus()}
         buttonText={'Add Categories'}
         onClick={handleAddCategorie}
         buttonId="add-categories"

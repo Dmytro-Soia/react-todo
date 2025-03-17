@@ -1,11 +1,14 @@
 export async function get_todo_from_api() {
   try {
-    const fetchGet = await fetch('https://api.todos.in.jt-lab.ch/todos', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const fetchGet = await fetch(
+      'https://api.todos.in.jt-lab.ch/todos?select=*,categories(*)',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    });
+    );
     return await fetchGet.json();
   } catch {
     throw new Error('Cannot get todos from API');
