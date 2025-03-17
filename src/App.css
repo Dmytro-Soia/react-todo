@@ -4,17 +4,24 @@ html {
 
 #root {
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
 }
 
-#main {
+#main-todos {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 500px;
+  width: 50%;
+}
+
+#main-categories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
 }
 
 #app-name {
@@ -28,6 +35,13 @@ html {
   display: flex;
   justify-content: center;
   width: 500px;
+}
+
+#categories-input-section {
+  display: flex;
+  justify-content: center;
+  width: 500px;
+  margin-bottom: 20px;
 }
 
 #input {
@@ -50,6 +64,30 @@ html {
   background-color: #cfc795;
   border: 1px solid;
   border-radius: 0px 10px 10px 0px;
+}
+
+#add-categories {
+  height: 24px;
+  margin: 0px 5px;
+  background-color: #cfc795;
+  border: 1px solid;
+  border-radius: 0px 10px 10px 0px;
+}
+
+#color-category {
+  height: 24px;
+  margin: 0px 5px;
+  background-color: #cfc795;
+  border: 1px solid;
+  border-radius: 0px 0px 0px 0px;
+}
+
+#input-categories {
+  margin: 0px 5px;
+  background-color: #ebe5c2;
+  border: 1px solid;
+  border-radius: 10px 0px 0px 10px;
+  padding-left: 8px;
 }
 
 #sort-section {
@@ -92,7 +130,7 @@ html {
   justify-content: top;
   align-items: center;
   border-radius: 5px;
-  width: 500px;
+  width: 550px;
   height: 650px;
   border: 1px solid black;
   background-color: #ebe5c2;
@@ -109,12 +147,22 @@ html {
   background-color: #b9b28a;
 }
 
-#delete-button {
+#delete-button,
+#select-categorie {
   margin-right: 5px;
   border-radius: 0px 0px 0px 0px;
   border: 1px black solid;
   background-color: #f8f3d9;
   padding-left: 4px;
+  margin-left: 5px;
+}
+
+#delete-button-categories {
+  margin-right: 5px;
+  border-radius: 10px 0px 0px 10px;
+  border: 1px black solid;
+  background-color: #f8f3d9;
+  padding-left: 6px;
   margin-left: 5px;
 }
 
@@ -141,6 +189,15 @@ html {
 }
 
 #error {
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+  background-color: red;
+  border-radius: 50px;
+  padding: 0px 5px;
+}
+
+#error-categories {
   display: flex;
   justify-content: center;
   font-size: 25px;

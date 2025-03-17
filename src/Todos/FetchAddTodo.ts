@@ -1,11 +1,14 @@
 export async function get_todo_from_api() {
   try {
-    const fetchGet = await fetch('https://api.todos.in.jt-lab.ch/todos', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const fetchGet = await fetch(
+      'https://api.todos.in.jt-lab.ch/todos?select=*,categories(*)',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    });
+    );
     return await fetchGet.json();
   } catch {
     throw new Error('Cannot get todos from API');
@@ -71,9 +74,6 @@ export async function delete_todo_from_api(id: number) {
     `https://api.todos.in.jt-lab.ch/todos?id=eq.${id}`,
     {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     },
   );
   if (fetchDelete.ok) {

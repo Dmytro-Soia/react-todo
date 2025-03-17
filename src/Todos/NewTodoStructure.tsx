@@ -1,9 +1,18 @@
-import { Todo } from './App';
+import { useEffect, useState } from 'react';
+import { Todo } from '../App';
 import {
-  delete_todo_from_api,
-  patch_todo_from_api,
-} from './FetchApi/FetchAddTodo';
-import { useCurrentTodo, useError, useForm, useTodos } from './zustand';
+  useCategories,
+  useCurrentTodo,
+  useCwT,
+  useError,
+  useForm,
+  useTodos,
+} from '../zustand';
+import { delete_todo_from_api, patch_todo_from_api } from './FetchAddTodo';
+import {
+  changeCategoryForTodos,
+  get_cwt_from_api,
+} from '../categorieWithTodos';
 
 const NewTodoStructure = ({ todo }: { todo: Todo }) => {
   const updateEdit = useCurrentTodo((state) => state.updateEdit);
@@ -11,6 +20,10 @@ const NewTodoStructure = ({ todo }: { todo: Todo }) => {
   const { updateTitle, updateDate } = useForm();
   const { checkDoneStatus, deleteTodo } = useTodos();
   const updateError = useError((state) => state.updateError);
+  const categories = useCategories((state) => state.categories);
+  const { updateCwT } = useCwT();
+  const todos = useTodos((state) => state.todos);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
 
   let newColor = 'black';
   const today = new Date();
@@ -35,6 +48,43 @@ const NewTodoStructure = ({ todo }: { todo: Todo }) => {
     }
   };
 
+  const categorieOptions = categories.map((categorie) => {
+    return (
+      <option value={categorie.id} key={categorie.id}>
+        {categorie.title}
+      </option>
+    );
+  });
+
+  useEffect(() => {
+    get_cwt_from_api()
+      .then((data) => {
+        updateCwT(data);
+      })
+      .catch((err) => {
+        updateError(err);
+      });
+  }, []);
+
+  const fetchTodoCategories = async () => {
+    const existedCategorie = todos.find((t: Todo) => t.id === todo.id);
+    if (existedCategorie?.categories) {
+      setSelectedCategory(existedCategorie.categories[0].id.toString());
+    } else {
+      setSelectedCategory('');
+    }
+    fetchTodoCategories()
+  };
+  
+
+  const handleCategoryChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    const categorieId = event.target.value;
+    setSelectedCategory(categorieId);
+    changeCategoryForTodos(categorieId, todo.id);
+  };
+
   if (new Date(todo.due_date) < today) {
     newColor = 'red';
   } else if (new Date(todo.due_date).getTime() === today.getTime()) {
@@ -44,15 +94,17 @@ const NewTodoStructure = ({ todo }: { todo: Todo }) => {
   } else {
     newColor = 'green';
   }
+
   const handleEdit = async () => {
     updateEdit(true);
     updateCurrentTodo(todo);
     updateTitle(todo.title);
     updateDate(todo.due_date);
   };
+
   return (
     <li className="example">
-      <p id="todo-title">{todo.title}</p>
+      <p id="</li>todo-title">{todo.title}</p>
       <p style={{ color: newColor }} id="todo-date">
         {todo.due_date}
       </p>
@@ -65,6 +117,14 @@ const NewTodoStructure = ({ todo }: { todo: Todo }) => {
       <button id="edit-button" onClick={handleEdit}>
         Edit
       </button>
+      <select
+        id="select-categorie"
+        value={selectedCategory}
+        onChange={handleCategoryChange}
+      >
+        <option value={''}>Choose category</option>
+        {categorieOptions}
+      </select>
       <button id="delete-button" onClick={handleDelete}>
         Delete
       </button>
