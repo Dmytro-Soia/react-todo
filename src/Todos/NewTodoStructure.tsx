@@ -66,17 +66,16 @@ const NewTodoStructure = ({ todo }: { todo: Todo }) => {
       });
   }, []);
 
-  useEffect(() => {
-    async function fetchTodoCategories() {
-      const existedCategorie = todos.find((t: Todo) => t.id === todo.id);
-      if (existedCategorie?.categories[0]) {
-        setSelectedCategory(existedCategorie.categories[0].id.toString());
-      } else {
-        setSelectedCategory('');
-      }
+  const fetchTodoCategories = async () => {
+    const existedCategorie = todos.find((t: Todo) => t.id === todo.id);
+    if (existedCategorie?.categories) {
+      setSelectedCategory(existedCategorie.categories[0].id.toString());
+    } else {
+      setSelectedCategory('');
     }
-    fetchTodoCategories();
-  }, []);
+    fetchTodoCategories()
+  };
+  
 
   const handleCategoryChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
