@@ -7,8 +7,14 @@ import {
 import { add_category_to_api } from './fecthCategories';
 
 const CategoriesInput = () => {
-  const { title, color, handleTitleChange, handleColorChange } =
-    useCategoryInput();
+  const {
+    title,
+    color,
+    handleTitleChange,
+    handleColorChange,
+    updateTitle,
+    updateColor,
+  } = useCategoryInput();
   const addCategory = useCategories((state) => state.addCategories);
   const updateCatError = useErrorCategories((state) => state.updateCatError);
   function buttonDisEnStatus() {
@@ -24,6 +30,8 @@ const CategoriesInput = () => {
       addCategory(newCategorie);
     } catch {
       updateCatError('Fail to add this categorie');
+    } finally {
+      updateTitle(''), updateColor('');
     }
   }
   return (

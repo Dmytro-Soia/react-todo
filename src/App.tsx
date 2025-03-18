@@ -20,7 +20,7 @@ export interface Todo {
   context: string;
   due_date: string;
   done: boolean;
-  categories: [{ id: number }];
+  categories: Categorie[];
 }
 
 export interface Categorie {

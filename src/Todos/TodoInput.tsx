@@ -25,13 +25,14 @@ const TodoInput = () => {
 
   async function handleAddTodo() {
     try {
-      const newTodo = await add_todo_to_api(title, date, false);
+      const newTodo = await add_todo_to_api(title, date);
       addTodo({
         id: newTodo.id,
         title: title,
         context: '',
         due_date: date,
         done: false,
+        categories: [],
       });
     } catch {
       updateError('Fail to add todo');
@@ -40,6 +41,7 @@ const TodoInput = () => {
       updateDate('');
     }
   }
+
   async function handleUpdateTodo() {
     try {
       await patch_todo_from_api(currentTodo.id, title, date, currentTodo.done);

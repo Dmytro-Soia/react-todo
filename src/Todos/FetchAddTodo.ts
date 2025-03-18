@@ -15,11 +15,7 @@ export async function get_todo_from_api() {
   }
 }
 
-export async function add_todo_to_api(
-  title: string,
-  due_date: string,
-  done: boolean,
-) {
+export async function add_todo_to_api(title: string, due_date: string) {
   const fetchPost = await fetch('https://api.todos.in.jt-lab.ch/todos', {
     method: 'POST',
     headers: {
@@ -30,7 +26,6 @@ export async function add_todo_to_api(
     body: JSON.stringify({
       title: title,
       due_date: due_date,
-      done: done,
     }),
   });
   if (fetchPost.ok) {
